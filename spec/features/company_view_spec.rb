@@ -65,63 +65,62 @@ describe 'the company view', type: :feature do
   end
 
   describe 'email addresses' do
-    skip
     before(:each) do
-      person.email_addresses.create(address: 'cave@aperture_labs.com')
-      person.email_addresses.create(address: 'boss@aperture_labs.com')
-      visit person_path(person)
+      company.email_addresses.create(address: 'cave@aperture_labs.com')
+      company.email_addresses.create(address: 'boss@aperture_labs.com')
+      visit company_path(company)
     end
 
-    xit 'shows the email addresses' do
-      person.email_addresses.each do |email|
+    it 'shows the email addresses' do
+      company.email_addresses.each do |email|
         expect(page).to have_content(email.address)
         expect(page).to have_selector('li', text: 'cave@aperture_labs.com')
       end
     end
 
-    xit 'has an add email address link' do
+    it 'has an add email address link' do
       expect(page).to have_link('Add email address',
-        href: new_email_address_path(person_id: person.id))
+        href: new_email_address_path(contact_id: company.id, contact_type: 'Company'))
     end
 
-    xit 'adds a new email address' do
+    it 'adds a new email address' do
       page.click_link('Add email address')
       page.fill_in('Address', with: 'rattman@aperture_labs.com')
       page.click_button('Create Email address')
-      expect(current_path).to eq(person_path(person))
+      expect(current_path).to eq(company_path(company))
       expect(page).to have_content('rattman@aperture_labs.com')
     end
 
-    xit 'has links to edit email addresses' do
-      person.email_addresses.each do |address|
+    it 'has links to edit email addresses' do
+      company.email_addresses.each do |address|
         expect(page).to have_link('edit', href: edit_email_address_path(address))
       end
     end
 
-    xit 'edits an email address' do
-      address = person.email_addresses.first
+    it 'edits an email address' do
+      address = company.email_addresses.first
       old_address = address.address
 
       first(:link, 'edit').click
       page.fill_in('Address', with: 'alice@turing.com')
       page.click_button('Update Email address')
-      expect(current_path).to eq(person_path(person))
+      expect(current_path).to eq(company_path(company))
       expect(page).to have_content('alice@turing.com')
       expect(page).to_not have_content(old_address)
     end
 
-    xit 'has links to delete email addresses' do
-      person.email_addresses.each do |address|
+    it 'has links to delete email addresses' do
+      company.email_addresses.each do |address|
         expect(page).to have_link('delete', href: email_address_path(address))
       end
     end
 
-    xit 'deletes an email address' do
-      address = person.email_addresses.first
+    it 'deletes an email address' do
+      address = company.email_addresses.first
       old_address = address.address
 
       first(:link, 'delete').click
-      expect(current_path).to eq(person_path(person))
+      expect(current_path).to eq(company_path(company))
       expect(page).to_not have_content(old_address)
     end
   end
