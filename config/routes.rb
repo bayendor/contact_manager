@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   root to: 'people#index'
 
-  resources :phone_numbers
+  resources :phone_numbers, except: [:index, :show]
 
   resources :people
 
