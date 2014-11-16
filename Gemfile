@@ -4,8 +4,7 @@ ruby '2.1.5'
 
 group :production do
  gem 'rails_12factor'
-#  gem 'unicorn'
-#  gem 'rack-timeout'
+ #  gem 'rack-timeout'
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -49,3 +48,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
 end
+
+gem 'omniauth'
+gem 'omniauth-twitter'
