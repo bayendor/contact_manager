@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :email_addresses, except: [:index, :show]
 
-  root to: 'companies#index'
+  root to: 'site#index'
 
   resources :phone_numbers, except: [:index, :show]
 
@@ -13,4 +13,7 @@ Rails.application.routes.draw do
 
   resource :sessions, only: [:create]
 
+  get "/login" => redirect("/auth/twitter"), as: :login
+
+  delete "/logout" => "sessions#destroy", as: :logout
 end
